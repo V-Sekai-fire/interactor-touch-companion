@@ -20,6 +20,7 @@
 #include "capture.h"
 #include "guard.h"
 #include "keymap.h"
+#include "layout.h"
 #include "panelspun/window.h"
 #include "frame_share.h"
 
@@ -138,7 +139,8 @@ public:
     void recordVulkan(const panelspun::VulkanRegionFrame& f) override {
         VkRect2D dst{};
         if (share_.ready()) {
-            float fit = std::min(f.width / float(share_.width()), f.height / float(share_.height())) * s_.opt.viewScale;
+            float fit = std::min(f.width / float(share_.width()), f.height / float(share_.height())) *
+                        std::clamp(s_.opt.viewScale, 0.05f, 1.0f);
             dst.extent = {std::uint32_t(share_.width() * fit), std::uint32_t(share_.height() * fit)};
             dst.offset = {int32_t((f.width - dst.extent.width) / 2), int32_t((f.height - dst.extent.height) / 2)};
         }
@@ -191,7 +193,7 @@ public:
         for (const Button& b : s_.buttons) {
             bool held = std::find(down_.begin(), down_.end(), &b) != down_.end();
             panelspun::drawRect(ctx, s_.buttonsX + b.x, top + b.y, b.w, b.h, 12.0f, held ? panelspun::Color{192, 48, 128} : panelspun::Color{32, 48, 64});
-            panelspun::drawText(ctx, b.key->label, s_.opt.size / 3, s_.buttonsX + b.x + b.w / 2, top + b.y + b.h / 2 - s_.opt.size / 6, 0.5f,
+            panelspun::drawText(ctx, b.key->label, b.h / 3, s_.buttonsX + b.x + b.w / 2, top + b.y + b.h / 2 - b.h / 6, 0.5f,
                                 panelspun::Color{255, 255, 255});
         }
         panelspun::drawText(ctx, s_.status, 14.0f, 8.0f, 4.0f, 0.0f, panelspun::Color{200, 200, 200});
@@ -305,11 +307,19 @@ int wmain(int argc, wchar_t** argv) {
         return 3;
     }
     s.sender = std::make_unique<Sender>(Guard(s.opt.pid));
-    s.buttons = layoutButtons(s.map, s.opt.size, s.opt.gap);
-    float rows = 0.0f;
-    for (const Button& b : s.buttons) rows = std::max(rows, b.y + b.h);
-    s.keysHeight = int(rows + 2 * s.opt.gap + 24.0f);
     s.gameRect = frameBounds(s.game);
+    const float winW = float(s.gameRect.right - s.gameRect.left), winH = float(s.gameRect.bottom - s.gameRect.top);
+    LayoutOptions lo;
+    lo.size = s.opt.size;
+    lo.gap = s.opt.gap;
+    lo.viewScale = s.opt.viewScale;
+    const CompanionLayout fitted = fitCompanion(s.map, winW, winH, winW, winH, lo);
+    if (std::vector<std::string> bad = layoutViolations(fitted); !bad.empty()) {
+        std::fprintf(stderr, "touch-companion: layout guard: %s\n", bad.front().c_str());
+        return 5;
+    }
+    s.buttons = layoutButtons(s.map, s.opt.size * fitted.buttonScale, s.opt.gap * fitted.buttonScale);
+    s.keysHeight = int(fitted.keys.h);
 
     panelspun::WindowConfig config;
     config.title = "touch-companion";

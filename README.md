@@ -69,6 +69,10 @@ window.
 - **Window.** The window and buttons are [panelspun](https://github.com/V-Sekai-fire/interactor-panelspun)
   (SDL3 and ThorVG on Vulkan), the toolkit XR Pilot uses. The window is topmost, borderless and `WS_EX_NOACTIVATE`.
   A click on it never takes focus, so the game stays the foreground window.
+- **Fit.** The picture is drawn at `--view-scale` (at most 1) of the largest size that fits its region, keeping
+  the game's aspect. The buttons shrink, never grow, to fit the strip, which takes at most 40% of the window. A
+  layout guard refuses to start (exit 5) if any button or the picture would leave its region or overlap, or a
+  button would be under 32 px.
 - **Guard.** A button sends its key with `SendInput`, as a scancode. It does so only after the guard confirms that
   the foreground window belongs to the game's process. Otherwise the key is refused and counted, and the window
   shows why. A key can never reach another app.

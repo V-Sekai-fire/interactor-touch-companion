@@ -20,7 +20,7 @@ set(PANELSPUN_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(PANELSPUN_BUILD_DEMO OFF CACHE BOOL "" FORCE)
 add_subdirectory(third_party/panelspun)
 
-add_library(companion_input STATIC src/keymap.cpp src/guard.cpp)
+add_library(companion_input STATIC src/keymap.cpp src/guard.cpp src/layout.cpp)
 target_include_directories(companion_input PUBLIC src)
 target_link_libraries(companion_input PUBLIC nlohmann_json::nlohmann_json user32)
 
@@ -45,6 +45,9 @@ set(COMPANION_CASES
   keymap.default-map-loads
   keymap.unknown-code-refused
   layout.matches-browser-keypad
+  layout.fits-every-window-and-scale
+  layout.old-unscaled-layout-overflows
+  layout.refuses-buttons-too-small-to-hit
   guard.refuses-foreign-foreground
   guard.refuses-live-foreground-for-windowless-game
   sender.button-sends-exactly-its-key

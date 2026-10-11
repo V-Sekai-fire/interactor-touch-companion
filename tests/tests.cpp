@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0 OR MIT
+#include <algorithm>
 #include <chrono>
+#include <cmath>
 #include <cstdio>
 #include <cstring>
 #include <filesystem>
@@ -15,6 +17,7 @@
 #include "capture.h"
 #include "guard.h"
 #include "keymap.h"
+#include "layout.h"
 
 using namespace companion;
 
@@ -311,6 +314,57 @@ void companionPresents() {
     CHECK(p[1] > 200 && p[0] < 60 && p[2] < 60);
 }
 
+
+void layoutFitsEveryWindow() {
+    KeyMap m = defaultMap();
+    for (auto [w, h] : {std::pair{640.0f, 480.0f}, {1280.0f, 720.0f}, {1920.0f, 1080.0f}, {3840.0f, 2160.0f}, {900.0f, 1600.0f}})
+        for (float size : {48.0f, 96.0f, 200.0f})
+            for (float scale : {0.4f, 1.0f, 1.5f}) {
+                LayoutOptions o;
+                o.size = size;
+                o.viewScale = scale;
+                CompanionLayout l = fitCompanion(m, w, h, w, h, o);
+                std::vector<std::string> bad = layoutViolations(l);
+                if (!bad.empty()) std::fprintf(stderr, "%gx%g size %g scale %g: %s\n", w, h, size, scale, bad.front().c_str());
+                CHECK(bad.empty());
+                CHECK(std::abs(l.picture.w / l.picture.h - w / h) < 0.01f);
+                CHECK(l.buttonScale <= 1.0f);
+                if (scale >= 1.0f)
+                    CHECK(std::abs(l.picture.w - l.game.w) < 1.0f || std::abs(l.picture.h - l.game.h) < 1.0f);
+            }
+}
+
+// Control: the layout before the fit, buttons at their configured size centred in a strip of up to 95% of the
+// window and the picture scaled past its region, is caught.
+void layoutOldOverflows() {
+    KeyMap m = defaultMap();
+    const float w = 640.0f, h = 480.0f;
+    CompanionLayout l;
+    l.window = {0, 0, w, h};
+    std::vector<Button> natural = layoutButtons(m, 200.0f, 16.0f);
+    float bw = 0.0f, bh = 0.0f;
+    for (const Button& b : natural) {
+        bw = std::max(bw, b.x + b.w);
+        bh = std::max(bh, b.y + b.h);
+    }
+    const float strip = std::min(bh + 2 * 16.0f + 24.0f, 0.95f * h);
+    l.keys = {0, h - strip, w, strip};
+    l.game = {0, 0, w, h - strip};
+    for (const Button& b : natural) l.buttons.push_back(Button{b.key, (w - bw) / 2 + b.x, l.keys.y + b.y, b.w, b.h});
+    const float fit = std::min(l.game.w / w, l.game.h / h) * 1.5f;
+    l.picture = {(l.game.w - w * fit) / 2, (l.game.h - h * fit) / 2, w * fit, h * fit};
+    CHECK(!layoutViolations(l).empty());
+}
+
+void layoutRefusesTinyButtons() {
+    KeyMap m = defaultMap();
+    LayoutOptions o;
+    CompanionLayout l = fitCompanion(m, 200.0f, 150.0f, 200.0f, 150.0f, o);
+    bool tooSmall = false;
+    for (const std::string& v : layoutViolations(l)) tooSmall = tooSmall || v.find(" px") != std::string::npos;
+    CHECK(tooSmall);
+}
+
 }
 
 int wmain(int argc, wchar_t** argv) {
@@ -318,6 +372,9 @@ int wmain(int argc, wchar_t** argv) {
         {"keymap.default-map-loads", keymapDefault},
         {"keymap.unknown-code-refused", keymapUnknown},
         {"layout.matches-browser-keypad", layoutMatchesBrowser},
+        {"layout.fits-every-window-and-scale", layoutFitsEveryWindow},
+        {"layout.old-unscaled-layout-overflows", layoutOldOverflows},
+        {"layout.refuses-buttons-too-small-to-hit", layoutRefusesTinyButtons},
         {"guard.refuses-foreign-foreground", guardRefusesForeign},
         {"guard.refuses-live-foreground-for-windowless-game", guardRefusesLiveForeground},
         {"sender.button-sends-exactly-its-key", senderExactKey},
