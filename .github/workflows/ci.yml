@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Native tests
+        run: ctest --test-dir build --output-on-failure
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Browser keypad tests (headless Edge)
+        run: node --test browser/keypad.test.mjs
+
+      - name: Validate CITATION.cff
+        run: pipx run cffconvert --validate
+
+      - name: Name what this job does not check
+        shell: bash
+        run: |
+          echo "UNCHECKED (2): gpu.capture-yields-frames-from-a-test-window and gpu.companion-presents-the-captured-game"
+          echo "need a desktop session and a GPU; they are registered only with -DCOMPANION_GPU_TESTS=ON and run locally."

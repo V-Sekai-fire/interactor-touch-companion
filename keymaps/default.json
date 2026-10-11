@@ -1,0 +1,11 @@
+{
+ "name": "default",
+ "keys": [
+  {"code": "ArrowUp", "label": "↑", "row": 0, "col": 1},
+  {"code": "ArrowLeft", "label": "←", "row": 1, "col": 0},
+  {"code": "ArrowDown", "label": "↓", "row": 1, "col": 1},
+  {"code": "ArrowRight", "label": "→", "row": 1, "col": 2},
+  {"code": "Enter", "label": "Enter", "row": 0, "col": 4, "span": 2},
+  {"code": "Space", "label": "Space", "row": 1, "col": 4, "span": 2}
+ ]
+}

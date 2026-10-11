@@ -1,0 +1,14 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>keypad test</title>
+<body>
+<canvas id="game" width="320" height="200" tabindex="0"></canvas>
+<script>
+window.events = []
+;['keydown', 'keyup'].forEach(function (t) {
+  document.addEventListener(t, function (e) { window.events.push([t, e.code, e.key, e.keyCode]) })
+})
+document.getElementById('game').focus()
+</script>
+<script src="keypad.js" data-map="../keymaps/default.json" data-keys="../keymaps/keys.json" data-size="96" data-gap="16"></script>
+</body>

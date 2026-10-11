@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Touch Companion: a game's captured window and touch key buttons in one window, for agents that can only click"
+type: software
+authors:
+  - name: "K. S. Ernest (iFire) Lee"
+license:
+  - Apache-2.0
+  - MIT
+repository-code: "https://github.com/V-Sekai-fire/interactor-touch-companion"
+version: 0.1.0
+date-released: "2026-10-11"
+references:
+  - type: software
+    title: "panelspun"
+    authors:
+      - name: "K. S. Ernest (iFire) Lee"
+    abstract: "SDL3 and ThorVG panels on a Vulkan swapchain, subtreed in third_party/panelspun."
+    repository-code: "https://github.com/V-Sekai-fire/interactor-panelspun"
+    license:
+      - Apache-2.0
+      - MIT
+  - type: software
+    title: "JSON for Modern C++"
+    authors:
+      - family-names: Lohmann
+        given-names: Niels
+    repository-code: "https://github.com/nlohmann/json"
+    version: 3.11.3
+    license: MIT
+  - type: software
+    title: "XR Pilot"
+    authors:
+      - name: "K. S. Ernest (iFire) Lee"
+    abstract: "The agent-facing MCP server whose clicks drive this companion through the SteamVR desktop view."
+    repository-code: "https://github.com/V-Sekai-fire/interactor-xr-pilot"
+    license:
+      - Apache-2.0
+      - MIT

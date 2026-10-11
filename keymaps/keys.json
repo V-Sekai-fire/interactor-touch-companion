@@ -1,0 +1,331 @@
+{
+ "ArrowUp": {
+  "key": "ArrowUp",
+  "keyCode": 38,
+  "vk": 38,
+  "scan": 72,
+  "extended": true
+ },
+ "ArrowDown": {
+  "key": "ArrowDown",
+  "keyCode": 40,
+  "vk": 40,
+  "scan": 80,
+  "extended": true
+ },
+ "ArrowLeft": {
+  "key": "ArrowLeft",
+  "keyCode": 37,
+  "vk": 37,
+  "scan": 75,
+  "extended": true
+ },
+ "ArrowRight": {
+  "key": "ArrowRight",
+  "keyCode": 39,
+  "vk": 39,
+  "scan": 77,
+  "extended": true
+ },
+ "Space": {
+  "key": " ",
+  "keyCode": 32,
+  "vk": 32,
+  "scan": 57,
+  "extended": false
+ },
+ "Enter": {
+  "key": "Enter",
+  "keyCode": 13,
+  "vk": 13,
+  "scan": 28,
+  "extended": false
+ },
+ "Escape": {
+  "key": "Escape",
+  "keyCode": 27,
+  "vk": 27,
+  "scan": 1,
+  "extended": false
+ },
+ "Tab": {
+  "key": "Tab",
+  "keyCode": 9,
+  "vk": 9,
+  "scan": 15,
+  "extended": false
+ },
+ "Backspace": {
+  "key": "Backspace",
+  "keyCode": 8,
+  "vk": 8,
+  "scan": 14,
+  "extended": false
+ },
+ "ShiftLeft": {
+  "key": "Shift",
+  "keyCode": 16,
+  "vk": 16,
+  "scan": 42,
+  "extended": false
+ },
+ "ControlLeft": {
+  "key": "Control",
+  "keyCode": 17,
+  "vk": 17,
+  "scan": 29,
+  "extended": false
+ },
+ "KeyQ": {
+  "key": "q",
+  "keyCode": 81,
+  "vk": 81,
+  "scan": 16,
+  "extended": false
+ },
+ "KeyW": {
+  "key": "w",
+  "keyCode": 87,
+  "vk": 87,
+  "scan": 17,
+  "extended": false
+ },
+ "KeyE": {
+  "key": "e",
+  "keyCode": 69,
+  "vk": 69,
+  "scan": 18,
+  "extended": false
+ },
+ "KeyR": {
+  "key": "r",
+  "keyCode": 82,
+  "vk": 82,
+  "scan": 19,
+  "extended": false
+ },
+ "KeyT": {
+  "key": "t",
+  "keyCode": 84,
+  "vk": 84,
+  "scan": 20,
+  "extended": false
+ },
+ "KeyY": {
+  "key": "y",
+  "keyCode": 89,
+  "vk": 89,
+  "scan": 21,
+  "extended": false
+ },
+ "KeyU": {
+  "key": "u",
+  "keyCode": 85,
+  "vk": 85,
+  "scan": 22,
+  "extended": false
+ },
+ "KeyI": {
+  "key": "i",
+  "keyCode": 73,
+  "vk": 73,
+  "scan": 23,
+  "extended": false
+ },
+ "KeyO": {
+  "key": "o",
+  "keyCode": 79,
+  "vk": 79,
+  "scan": 24,
+  "extended": false
+ },
+ "KeyP": {
+  "key": "p",
+  "keyCode": 80,
+  "vk": 80,
+  "scan": 25,
+  "extended": false
+ },
+ "KeyA": {
+  "key": "a",
+  "keyCode": 65,
+  "vk": 65,
+  "scan": 30,
+  "extended": false
+ },
+ "KeyS": {
+  "key": "s",
+  "keyCode": 83,
+  "vk": 83,
+  "scan": 31,
+  "extended": false
+ },
+ "KeyD": {
+  "key": "d",
+  "keyCode": 68,
+  "vk": 68,
+  "scan": 32,
+  "extended": false
+ },
+ "KeyF": {
+  "key": "f",
+  "keyCode": 70,
+  "vk": 70,
+  "scan": 33,
+  "extended": false
+ },
+ "KeyG": {
+  "key": "g",
+  "keyCode": 71,
+  "vk": 71,
+  "scan": 34,
+  "extended": false
+ },
+ "KeyH": {
+  "key": "h",
+  "keyCode": 72,
+  "vk": 72,
+  "scan": 35,
+  "extended": false
+ },
+ "KeyJ": {
+  "key": "j",
+  "keyCode": 74,
+  "vk": 74,
+  "scan": 36,
+  "extended": false
+ },
+ "KeyK": {
+  "key": "k",
+  "keyCode": 75,
+  "vk": 75,
+  "scan": 37,
+  "extended": false
+ },
+ "KeyL": {
+  "key": "l",
+  "keyCode": 76,
+  "vk": 76,
+  "scan": 38,
+  "extended": false
+ },
+ "KeyZ": {
+  "key": "z",
+  "keyCode": 90,
+  "vk": 90,
+  "scan": 44,
+  "extended": false
+ },
+ "KeyX": {
+  "key": "x",
+  "keyCode": 88,
+  "vk": 88,
+  "scan": 45,
+  "extended": false
+ },
+ "KeyC": {
+  "key": "c",
+  "keyCode": 67,
+  "vk": 67,
+  "scan": 46,
+  "extended": false
+ },
+ "KeyV": {
+  "key": "v",
+  "keyCode": 86,
+  "vk": 86,
+  "scan": 47,
+  "extended": false
+ },
+ "KeyB": {
+  "key": "b",
+  "keyCode": 66,
+  "vk": 66,
+  "scan": 48,
+  "extended": false
+ },
+ "KeyN": {
+  "key": "n",
+  "keyCode": 78,
+  "vk": 78,
+  "scan": 49,
+  "extended": false
+ },
+ "KeyM": {
+  "key": "m",
+  "keyCode": 77,
+  "vk": 77,
+  "scan": 50,
+  "extended": false
+ },
+ "Digit1": {
+  "key": "1",
+  "keyCode": 49,
+  "vk": 49,
+  "scan": 2,
+  "extended": false
+ },
+ "Digit2": {
+  "key": "2",
+  "keyCode": 50,
+  "vk": 50,
+  "scan": 3,
+  "extended": false
+ },
+ "Digit3": {
+  "key": "3",
+  "keyCode": 51,
+  "vk": 51,
+  "scan": 4,
+  "extended": false
+ },
+ "Digit4": {
+  "key": "4",
+  "keyCode": 52,
+  "vk": 52,
+  "scan": 5,
+  "extended": false
+ },
+ "Digit5": {
+  "key": "5",
+  "keyCode": 53,
+  "vk": 53,
+  "scan": 6,
+  "extended": false
+ },
+ "Digit6": {
+  "key": "6",
+  "keyCode": 54,
+  "vk": 54,
+  "scan": 7,
+  "extended": false
+ },
+ "Digit7": {
+  "key": "7",
+  "keyCode": 55,
+  "vk": 55,
+  "scan": 8,
+  "extended": false
+ },
+ "Digit8": {
+  "key": "8",
+  "keyCode": 56,
+  "vk": 56,
+  "scan": 9,
+  "extended": false
+ },
+ "Digit9": {
+  "key": "9",
+  "keyCode": 57,
+  "vk": 57,
+  "scan": 10,
+  "extended": false
+ },
+ "Digit0": {
+  "key": "0",
+  "keyCode": 48,
+  "vk": 48,
+  "scan": 11,
+  "extended": false
+ }
+}
