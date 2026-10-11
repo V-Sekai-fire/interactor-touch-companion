@@ -39,6 +39,8 @@ struct WindowConfig {
     bool notFocusable = false;
     bool alwaysOnTop = false;
     bool borderless = false;
+    // Created hidden, for a window that is placed with setBounds before show.
+    bool hidden = false;
     // Device extensions enabled beside the swapchain; creation fails if the device lacks one.
     std::vector<std::string> deviceExtensions;
 };
@@ -80,6 +82,7 @@ public:
     void requestClose();
     // Moves and sizes the window in desktop pixels, the units the OS reports other windows' rects in.
     void setBounds(int x, int y, int width, int height);
+    void show();
     // The OS window: an HWND on Windows, nullptr elsewhere.
     void* nativeHandle() const;
     // Hides the cursor and reports motion as dx, dy to the panel that has the keyboard; focus loss turns it off.

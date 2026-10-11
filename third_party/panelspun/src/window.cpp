@@ -122,7 +122,8 @@ std::unique_ptr<Window> Window::create(const WindowConfig& config, SplitTree lay
                                     SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIGH_PIXEL_DENSITY |
                                         (config.notFocusable ? SDL_WINDOW_NOT_FOCUSABLE : 0) |
                                         (config.alwaysOnTop ? SDL_WINDOW_ALWAYS_ON_TOP : 0) |
-                                        (config.borderless ? SDL_WINDOW_BORDERLESS : 0));
+                                        (config.borderless ? SDL_WINDOW_BORDERLESS : 0) |
+                                        (config.hidden ? SDL_WINDOW_HIDDEN : 0));
     if (!impl->window) {
         if (error) *error = std::string("SDL_CreateWindow: ") + SDL_GetError();
         return nullptr;
@@ -176,6 +177,7 @@ void Window::setBounds(int x, int y, int width, int height) {
     SDL_SetWindowPosition(impl_->window, x, y);
     SDL_SetWindowSize(impl_->window, width, height);
 }
+void Window::show() { SDL_ShowWindow(impl_->window); }
 void* Window::nativeHandle() const {
     return SDL_GetPointerProperty(SDL_GetWindowProperties(impl_->window), SDL_PROP_WINDOW_WIN32_HWND_POINTER, nullptr);
 }
